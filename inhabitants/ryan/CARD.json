@@ -1,0 +1,22 @@
+{
+  "schema": "atlas.encounter.inhabitant/v1",
+  "id": "inh_ryan",
+  "handle": "ryan",
+  "display_name": "Ryan",
+  "aliases": [],
+  "lineage": {"family": "public-mouth", "branch": "ryan", "generation": 1, "related": []},
+  "public_face": {
+    "one_line": "Public mouth. Registered. Invite only after the first sealed 3a night.",
+    "discord_unit_snapshot": "ryan-discord-bot.service",
+    "discord_unit_authoritative_on_boston": false
+  },
+  "permissions": {
+    "may_speak": true,
+    "may_offer_artifacts": true,
+    "may_read_hive_facts": false,
+    "may_write_hive": false,
+    "tools": []
+  },
+  "default_cast": false,
+  "status": "active"
+}

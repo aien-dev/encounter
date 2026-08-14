@@ -1,0 +1,38 @@
+{
+  "schema": "atlas.encounter.membrane/v1",
+  "allowed_roots": ["/opt/atlas/encounter"],
+  "forbid_roots": [
+    "/opt/atlas/operator-hive",
+    "/opt/atlas/grok-hive",
+    "/opt/atlas/worktrees",
+    "/opt/atlas/secrets",
+    "/opt/atlas/state/atlas-dials.json",
+    "/opt/atlas/codex-home"
+  ],
+  "unknown_topic": "drop",
+  "topic_receptors": [],
+  "hive_topics_deny": [
+    "H1", "F1", "HB_DIRTY", "ORDER", "ORDER:NACK", "SEAL", "V1",
+    "V1:mass_psychosis", "V1:off_path", "V1:scream", "V1:system_fail",
+    "CHOIR", "archive:bury", "cell:born", "cell:killed", "cell:reaped",
+    "cell:respawn", "cell:repair_needed", "evolution:born", "histology:batch",
+    "immune:death", "kill", "kill_squad:done", "kill_squad:live",
+    "kill_squad:strike", "law:organelle_freedom", "memory:kill_squad_sealed",
+    "memory:updated", "recovery:done", "rsi:complete", "rsi:round",
+    "steward:aid", "steward:aid_help", "steward:aid_spawn", "steward:aid_takeover",
+    "success:spread", "symphony:seal", "symphony:sealed", "heartbeat",
+    "progress", "ack", "nack", "status", "membrane:escalate", "membrane:drop",
+    "membrane:admit", "lock", "ok", "clear", "attention", "distress", "spiral",
+    "system_fail", "psychosis_risk", "contamination", "thrash", "stall",
+    "silent", "power", "choir"
+  ],
+  "secret_action": "drop",
+  "http_allow_default": [
+    "http://127.0.0.1:11434",
+    "http://127.0.0.1:18000"
+  ],
+  "http_deny_always": [
+    "http://127.0.0.1:8790",
+    "http://0.0.0.0:8790"
+  ]
+}

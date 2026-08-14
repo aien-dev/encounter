@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=/opt/atlas/encounter
+export PYTHONPATH="${ROOT}${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 "${ROOT}/tools/encounter_cli.py" "$@"

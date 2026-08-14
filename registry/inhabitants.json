@@ -1,0 +1,10 @@
+{
+  "schema": "atlas.encounter.registry/v1",
+  "inhabitants": [
+    {"id": "inh_atlas", "handle": "atlas", "display_name": "Atlas", "default_cast": true},
+    {"id": "inh_ava", "handle": "ava", "display_name": "Ava", "default_cast": true},
+    {"id": "inh_soren", "handle": "soren", "display_name": "Soren", "aliases": ["Saren"], "default_cast": false},
+    {"id": "inh_archer", "handle": "archer", "display_name": "Archer", "default_cast": false},
+    {"id": "inh_ryan", "handle": "ryan", "display_name": "Ryan", "default_cast": false}
+  ]
+}

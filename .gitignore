@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.log
+CURRENT
+MEMBRANE_EVENTS.jsonl
+inventory/INVENTORY.json
+scenes/
+requests/*.jsonl
+.DS_Store

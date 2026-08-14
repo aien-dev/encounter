@@ -1,0 +1,6 @@
+{
+  "schema": "atlas.encounter.room/v1",
+  "id": "room_atrium",
+  "name": "Atrium",
+  "dms": false
+}

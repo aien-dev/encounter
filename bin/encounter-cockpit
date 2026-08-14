@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Encounter room UI on loopback only.
+# Usage: encounter-cockpit start|stop|status
+set -euo pipefail
+ROOT=/opt/atlas/encounter
+PIDF="${XDG_RUNTIME_DIR:-/tmp}/encounter-cockpit.pid"
+LOG=/opt/atlas/logs/encounter-cockpit.log
+mkdir -p /opt/atlas/logs
+export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
+export ENCOUNTER_COCKPIT_HOST=127.0.0.1
+export ENCOUNTER_COCKPIT_PORT=8788
+
+cmd="${1:-status}"
+case "$cmd" in
+  start)
+    if [[ -f "$PIDF" ]] && kill -0 "$(cat "$PIDF")" 2>/dev/null; then
+      echo "encounter-cockpit: already up pid $(cat "$PIDF")"
+      exit 0
+    fi
+    nohup python3 "$ROOT/tools/encounter_cockpit.py" >>"$LOG" 2>&1 &
+    echo $! >"$PIDF"
+    sleep 0.3
+    if kill -0 "$(cat "$PIDF")" 2>/dev/null; then
+      echo "encounter-cockpit: UP http://127.0.0.1:8788/"
+    else
+      echo "encounter-cockpit: failed — see $LOG" >&2
+      exit 1
+    fi
+    ;;
+  stop)
+    if [[ -f "$PIDF" ]]; then
+      kill "$(cat "$PIDF")" 2>/dev/null || true
+      rm -f "$PIDF"
+    fi
+    echo "encounter-cockpit: stopped"
+    ;;
+  status)
+    if [[ -f "$PIDF" ]] && kill -0 "$(cat "$PIDF")" 2>/dev/null; then
+      echo "encounter-cockpit: UP pid $(cat "$PIDF") http://127.0.0.1:8788/"
+    else
+      echo "encounter-cockpit: down"
+      exit 1
+    fi
+    ;;
+  *)
+    echo "usage: encounter-cockpit start|stop|status" >&2
+    exit 2
+    ;;
+esac

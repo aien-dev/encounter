@@ -1,0 +1,22 @@
+{
+  "schema": "atlas.encounter.inhabitant/v1",
+  "id": "inh_atlas",
+  "handle": "atlas",
+  "display_name": "Atlas",
+  "aliases": [],
+  "lineage": {"family": "public-mouth", "branch": "atlas", "generation": 1, "related": []},
+  "public_face": {
+    "one_line": "Public mouth in this room. Not the orchestrator. No tools.",
+    "discord_unit_snapshot": "god-verify-bot.service",
+    "discord_unit_authoritative_on_boston": false
+  },
+  "permissions": {
+    "may_speak": true,
+    "may_offer_artifacts": true,
+    "may_read_hive_facts": false,
+    "may_write_hive": false,
+    "tools": []
+  },
+  "default_cast": true,
+  "status": "active"
+}

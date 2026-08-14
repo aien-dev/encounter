@@ -1,0 +1,7 @@
+{
+  "schema": "atlas.encounter.experiment/v1",
+  "id": "exp_address_v0",
+  "hypothesis": "Addressing and silence are real acts.",
+  "metrics": ["address_respected", "decline_used", "side_pair", "parse_ok_rate"],
+  "grader": "model_free_plus_operator_checklist"
+}

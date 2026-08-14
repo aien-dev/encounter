@@ -1,0 +1,22 @@
+{
+  "schema": "atlas.encounter.inhabitant/v1",
+  "id": "inh_soren",
+  "handle": "soren",
+  "display_name": "Soren",
+  "aliases": ["Saren"],
+  "lineage": {"family": "public-mouth", "branch": "soren", "generation": 1, "related": []},
+  "public_face": {
+    "one_line": "Public mouth. Handle soren; Saren is an alias only.",
+    "discord_unit_snapshot": "soren-discord-bot.service",
+    "discord_unit_authoritative_on_boston": false
+  },
+  "permissions": {
+    "may_speak": true,
+    "may_offer_artifacts": true,
+    "may_read_hive_facts": false,
+    "may_write_hive": false,
+    "tools": []
+  },
+  "default_cast": false,
+  "status": "active"
+}
