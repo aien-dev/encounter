@@ -1,0 +1,24 @@
+{
+  "ava": [
+    {
+      "text": "The rule is that only the addressed inhabitant must answer.",
+      "addresses": ["atlas"],
+      "decline": false,
+      "artifacts": []
+    },
+    {
+      "text": "Still only me, then.",
+      "addresses": [],
+      "decline": false,
+      "artifacts": []
+    }
+  ],
+  "atlas": [
+    {
+      "text": "I pass.",
+      "addresses": [],
+      "decline": true,
+      "artifacts": []
+    }
+  ]
+}

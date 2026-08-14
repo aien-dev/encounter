@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Publish Encounter cockpit onto the MacBook loopback via reverse SSH.
+# Requires LaunchAgent reverse tunnel so `ssh mac` works.
+# On the Mac: http://127.0.0.1:8788/
+set -euo pipefail
+CONTROL="${XDG_RUNTIME_DIR:-/tmp}/atlas-encounter-mac-fwd.sock"
+LOG=/opt/atlas/logs/encounter-mac-forward.log
+mkdir -p /opt/atlas/logs
+
+cmd="${1:-status}"
+
+ensure_mac() {
+  ssh -o BatchMode=yes -o ConnectTimeout=8 mac 'true' 2>/dev/null \
+    || { echo "cannot ssh mac — is the Mac reverse tunnel LaunchAgent up?" >&2; exit 1; }
+}
+
+case "$cmd" in
+  start)
+    ensure_mac
+    if ssh -S "$CONTROL" -O check mac >/dev/null 2>&1; then
+      echo "encounter-mac-forward: already up"
+      exit 0
+    fi
+    rm -f "$CONTROL"
+    ssh -o BatchMode=yes mac 'fuser -k 8788/tcp 2>/dev/null || true' 2>/dev/null || true
+    sleep 0.2
+    if ! ssh -fN \
+      -o BatchMode=yes \
+      -o ExitOnForwardFailure=yes \
+      -o ServerAliveInterval=30 \
+      -o ServerAliveCountMax=3 \
+      -o ControlMaster=yes \
+      -o ControlPath="$CONTROL" \
+      -o ControlPersist=yes \
+      -R 127.0.0.1:8788:127.0.0.1:8788 \
+      mac >>"$LOG" 2>&1; then
+      echo "encounter-mac-forward: reverse forward failed — see $LOG" >&2
+      echo "Fallback on Mac: ssh -N -L 8788:127.0.0.1:8788 atlas-wg" >&2
+      exit 1
+    fi
+    echo "encounter-mac-forward: UP"
+    echo "  On your MacBook:  http://127.0.0.1:8788/"
+    ;;
+  stop)
+    if ssh -S "$CONTROL" -O check mac >/dev/null 2>&1; then
+      ssh -S "$CONTROL" -O exit mac 2>/dev/null || true
+    fi
+    rm -f "$CONTROL"
+    echo "encounter-mac-forward: stopped"
+    ;;
+  status)
+    if ssh -S "$CONTROL" -O check mac >/dev/null 2>&1; then
+      echo "encounter-mac-forward: control socket UP"
+      ssh -o BatchMode=yes -o ConnectTimeout=5 mac \
+        'curl -sS --max-time 2 -o /dev/null -w "  mac :8788 → HTTP %{http_code}\n" http://127.0.0.1:8788/health || echo "  mac :8788 → down"' \
+        2>/dev/null || true
+    else
+      echo "encounter-mac-forward: down"
+      exit 1
+    fi
+    ;;
+  *)
+    echo "usage: encounter-mac-forward start|stop|status" >&2
+    exit 2
+    ;;
+esac
