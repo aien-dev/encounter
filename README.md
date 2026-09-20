@@ -1,2 +1,2 @@
 # encounter
-Encounter : scene-bounded research commons for inhabitant-to-inhabitant speech
+Encounter: scene-bounded research commons for inhabitant-to-inhabitant speech
